@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -71,22 +72,71 @@ class _HomePageState extends State<HomePage>
                           ),
                           Spacer(),
                           Container(
-                            height: 32,
-                            width: 32,
-                            decoration: BoxDecoration(color: Colors.blue),
+                            height: 36,
+                            width: 36,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      hintText: 'Search',
+                                      icon: Icon(Icons.search),
+                                      border: InputBorder.none),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 0),
+                              child: Center(
+                                child: Icon(
+                                  Icons.filter_alt,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
-                flex: 6,
+                flex: 4,
               ),
               TabBar(
                 isScrollable: true,
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.grey,
                 indicatorColor: Colors.transparent,
+                labelStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
                 tabs: [
                   Tab(
                     text: 'Recommended',
@@ -101,7 +151,26 @@ class _HomePageState extends State<HomePage>
                 controller: _tabController,
               ),
               Expanded(
-                child: Placeholder(),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Container(
+                      child: Center(
+                        child: Text('1'),
+                      ),
+                    ),
+                    Container(
+                      child: Center(
+                        child: Text('2'),
+                      ),
+                    ),
+                    Container(
+                      child: Center(
+                        child: Text('3'),
+                      ),
+                    ),
+                  ],
+                ),
                 flex: 15,
               ),
             ],
