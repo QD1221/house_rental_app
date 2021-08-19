@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:house_rental_app/model/house.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -137,6 +138,7 @@ class _HomePageState extends State<HomePage>
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
+                controller: _tabController,
                 tabs: [
                   Tab(
                     text: 'Recommended',
@@ -148,17 +150,166 @@ class _HomePageState extends State<HomePage>
                     text: 'Popular',
                   ),
                 ],
-                controller: _tabController,
               ),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    Container(
-                      child: Center(
-                        child: Text('1'),
-                      ),
-                    ),
+                    ListView.builder(
+                        itemCount: houseItems.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                3,
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              left: 0,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                        houseItems[index].img ??
+                                                            '',
+                                                      ),
+                                                      fit: BoxFit.cover),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 16,
+                                              right: 16,
+                                              top: 16,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: Colors.blue,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        Text(
+                                                          houseItems[index]
+                                                                  .star ??
+                                                              '',
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.favorite,
+                                                          color:
+                                                              Colors.blue[500],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            '${houseItems[index].title}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Spacer(),
+                                          Text(
+                                            '${houseItems[index].pricePerNight}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                                fontSize: 21),
+                                          ),
+                                          Text('/ Night'),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            color: Colors.blue,
+                                          ),
+                                          Text(
+                                            '${houseItems[index].location}',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                          Icon(
+                                            Icons.bed,
+                                            color: Colors.blue,
+                                          ),
+                                          Text(
+                                            '${houseItems[index].rooms}',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                          Icon(
+                                            Icons.crop_square,
+                                            color: Colors.blue,
+                                          ),
+                                          Text(
+                                            '${houseItems[index].area}',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
                     Container(
                       child: Center(
                         child: Text('2'),
