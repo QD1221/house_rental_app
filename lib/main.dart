@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:house_rental_app/provider/filter_area_provider.dart';
 import 'package:house_rental_app/provider/filter_provider.dart';
 import 'package:house_rental_app/ui/filter_page.dart';
 import 'package:house_rental_app/ui/home_page.dart';
@@ -14,13 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) => FilterProvider(),
-      child: MaterialApp(
-        routes: {
-          '/': (context) => HomePage(),
-          '/search/filter': (context) => FilterPage(),
-        },
-        title: 'Quang Tran',
-        debugShowCheckedModeBanner: false,
+      child: ChangeNotifierProvider(
+        create: (context) => FilterAreaProvider(),
+        child: MaterialApp(
+          routes: {
+            '/': (context) => HomePage(),
+            '/search/filter': (context) => FilterPage(),
+          },
+          title: 'Quang Tran',
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }
